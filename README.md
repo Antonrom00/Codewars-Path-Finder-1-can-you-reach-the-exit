@@ -11,8 +11,6 @@ Start and exit positions are empty in all test cases.
 
 [See the site](https://www.codewars.com/kata/5765870e190b1472ec0022a2)
 
-###### ___This solution works, but sometimes it can take a long time.___
-
 ### Path Finder Series:
  - [#1: can you reach the exit?](https://www.codewars.com/kata/5765870e190b1472ec0022a2)
  - [#2: shortest path](https://www.codewars.com/kata/57658bfa28ed87ecfa00058a)

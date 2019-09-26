@@ -1,44 +1,43 @@
 from collections import deque
 
 SYMBOL = '.'
+CHECKED_SYMBOL = 'x'
 
 
 def path_finder(maze: str) -> bool:
-    table = maze.split("\n")
+    table = list(map(list, maze.split("\n")))
     max_len = len(table[0]) - 1
     stack = deque()
     stack.append([0, 0])
-    checked = []
 
     while stack:
-        element = stack.popleft()
+        element = stack.pop()
+
+        x = element[1]
+        y = element[0]
 
         if element == [max_len, max_len]:
             return True
 
-        if element in checked:
+        if table[y][x] == CHECKED_SYMBOL:
             continue
 
         # Check right
-        if max_len >= element[0] and max_len >= element[1] + 1:
-            if table[element[0]][element[1] + 1] == SYMBOL and [element[0], element[1] + 1] not in checked:
-                stack.appendleft([element[0], element[1] + 1])
+        if max_len >= y and max_len >= x + 1 and table[y][x + 1] == SYMBOL and table[y][x + 1] != CHECKED_SYMBOL:
+            stack.appendleft([y, x + 1])
 
         # Check down
-        if max_len >= element[0] + 1 and max_len >= element[1]:
-            if table[element[0] + 1][element[1]] == SYMBOL and [element[0] + 1, element[1]] not in checked:
-                stack.appendleft([element[0] + 1, element[1]])
+        if max_len >= y + 1 and max_len >= x and table[y + 1][x] == SYMBOL and table[y + 1][x] != CHECKED_SYMBOL:
+            stack.appendleft([y + 1, x])
 
         # Check up
-        if element[0] - 1 >= 0 and element[1] >= 0:
-            if table[element[0] - 1][element[1]] == SYMBOL and [element[0] - 1, element[1]] not in checked:
-                stack.appendleft([element[0] - 1, element[1]])
+        if y - 1 >= 0 and x >= 0 and table[y - 1][x] == SYMBOL and table[y - 1][x] != CHECKED_SYMBOL:
+            stack.appendleft([y - 1, x])
 
         # Check left
-        if element[0] >= 0 and element[1] - 1 >= 0:
-            if table[element[0]][element[1] - 1] == SYMBOL and [element[0], element[1] - 1] not in checked:
-                stack.appendleft([element[0], element[1] - 1])
+        if y >= 0 and x - 1 >= 0 and table[y][x - 1] == SYMBOL and table[y][x - 1] != CHECKED_SYMBOL:
+            stack.appendleft([y, x - 1])
 
-        checked.append(element)
+        table[y][x] = CHECKED_SYMBOL
 
     return False
